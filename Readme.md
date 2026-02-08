@@ -240,8 +240,6 @@ This architecture has been **implemented and validated** across all five systems
 
 ---
 
-## 🧩 Mermaid Diagrams (GitHub‑renderable)
-
 ### End‑to‑End Pipeline
 
 ```mermaid
