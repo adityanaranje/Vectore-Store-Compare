@@ -5,7 +5,6 @@
 ---
 This document provides **architecture diagrams and explanations** for comparing **FAISS, ChromaDB, Qdrant, Weaviate, and Pinecone** using the **same PDF → embeddings → search pipeline**.
 
-You can **download this file as `ARCHITECTURE.md`** directly from this repository.
 
 ---
 
