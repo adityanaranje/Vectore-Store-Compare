@@ -246,15 +246,19 @@ This architecture has been **implemented and validated** across all five systems
 flowchart LR
     A[PDF] --> B[Text Extraction]
     B --> C[Chunking]
-    C --> D[Embedding Model
-all‑MiniLM‑L6‑v2 (384)]
+    C --> D[Embedding Model all MiniLM L6 v2 384 dim]
     D --> E{Vector Store}
-    E -->|FAISS| F1[In‑Memory Index]
-    E -->|Chroma| F2[Local Persistent DB]
-    E -->|Qdrant| F3[HNSW + Filters]
-    E -->|Weaviate| F4[Object + Vector Index]
+    E -->|FAISS| F1[In Memory Index]
+    E -->|ChromaDB| F2[Local Persistent DB]
+    E -->|Qdrant| F3[HNSW and Filters]
+    E -->|Weaviate| F4[Object and Vector Index]
     E -->|Pinecone| F5[Managed Vector Index]
-    F1 & F2 & F3 & F4 & F5 --> G[Top‑K Results]
+    F1 --> G[Top K Results]
+    F2 --> G
+    F3 --> G
+    F4 --> G
+    F5 --> G
+
 ```
 
 ---
@@ -289,15 +293,15 @@ flowchart LR
 ### ⏱️ Latency Comparison (Lower is Better)
 
 ```mermaid
-bar
-    title Vector DB Query Latency (ms)
-    x-axis Vector Store
-    y-axis Latency (ms)
-    "FAISS" : 5
-    "ChromaDB" : 18
-    "Qdrant" : 22
-    "Weaviate" : 30
-    "Pinecone" : 45
+flowchart LR
+    FAISS[FAISS ~5ms]
+    Chroma[ChromaDB ~18ms]
+    Qdrant[Qdrant ~22ms]
+    Weaviate[Weaviate ~30ms]
+    Pinecone[Pinecone ~45ms]
+
+    FAISS --> Chroma --> Qdrant --> Weaviate --> Pinecone
+
 ```
 
 ---
@@ -305,15 +309,15 @@ bar
 ### 🎯 Recall@3 Comparison (Higher is Better)
 
 ```mermaid
-bar
-    title Recall@3 Comparison
-    x-axis Vector Store
-    y-axis Recall
-    "FAISS" : 0.92
-    "ChromaDB" : 0.90
-    "Qdrant" : 0.93
-    "Weaviate" : 0.91
-    "Pinecone" : 0.94
+flowchart LR
+    Chroma_R[ChromaDB 0.90]
+    FAISS_R[FAISS 0.92]
+    Weaviate_R[Weaviate 0.91]
+    Qdrant_R[Qdrant 0.93]
+    Pinecone_R[Pinecone 0.94]
+
+    Chroma_R --> FAISS_R --> Weaviate_R --> Qdrant_R --> Pinecone_R
+
 ```
 
 ---
@@ -336,14 +340,3 @@ bar
 - Same query
 - Same distance metric (cosine)
 - Cold‑start excluded
-
----
-
-If you want next:
-- auto‑generated benchmark scripts
-- latency vs dataset‑size curves
-- RAG answer‑quality comparison
-- blog‑ready visuals
-
-I can add those cleanly.
-
